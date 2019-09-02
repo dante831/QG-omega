@@ -3,6 +3,9 @@ addpath('./source');
 
 pwd_str = pwd;
 
+% invert the omega equation of an example extreme-precipitation event, and plot figure 1
+inversion_example
+
 mat_filenames = {'CESM_6hourly.mat', ...
                  'CESM_daily.mat', ...
                  'GFDL_6hourly.mat', ...
