@@ -1,11 +1,6 @@
 
 files = {};
 
-files{1} = '/net/aimsir/archive1/ziweili/CESM_LENS/exp/ensemble_plots_varsig_Q_findcenter/extra_tropical_means.mat';
-files{2} = '/net/aimsir/archive1/ziweili/test1_GFDL/exp/ensemble_plots_varsig_Q_findcenter/extra_tropical_means.mat';
-files{3} = '/net/aimsir/archive1/ziweili/CESM_LENS/exp/ensemble_plots_varsig_Q_findcenter_daily/extra_tropical_means.mat';
-files{4} = '/net/aimsir/archive1/ziweili/test1_GFDL/exp/ensemble_plots_varsig_Q_findcenter_daily/extra_tropical_means.mat'; 
-
 files{1} = './data/extra_tropical_means_CESM_6hourly.mat';
 files{2} = './data/extra_tropical_means_GFDL_6hourly.mat';
 files{3} = './data/extra_tropical_means_CESM_daily.mat';
