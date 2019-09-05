@@ -1,6 +1,10 @@
 # QG-omega inversion
 
-## The '''main_plot''' function
+This repository accompanies the paper Li and O'Gorman, 2019, "Response of Vertical Velocities in Extratropical Precipitation Extremes to Climate Change". It includes all data used to plot figures in the main paper, and some of the figures in the supplementary material. For a copy of the paper, please see
+
+## The main_plot function
+
+
 
 ## Inverting QG-omega equation using an example event
 
