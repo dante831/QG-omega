@@ -1,10 +1,18 @@
-# Project Title
+# QG-omega inversion
 
-QG-omega
+This repository accompanies the paper Li and O'Gorman, 2019, "Response of Vertical Velocities in Extratropical Precipitation Extremes to Climate Change". It includes all data used to plot figures in the main paper, and some of the figures in the supporting information. For a copy of the paper, please see this [link](https://pog.mit.edu/src/li_omega_equation_precipitation_extremes_2019.pdf), and the supporting information can be seen at this [link](https://pog.mit.edu/src/li_omega_equation_precipitation_extremes_supp_2019.pdf). 
 
-## Getting Started
+## Prerequisites
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+You will need Matlab version 2019
+
+## The main_plot routine
+
+## Inverting QG-omega equation using an example event
+
+## Plotting figures
+
+
 
 ### Prerequisites
 
