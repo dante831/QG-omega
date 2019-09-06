@@ -4,9 +4,14 @@ This repository accompanies the paper Li and O'Gorman, 2019, "Response of Vertic
 
 ## Prerequisites
 
-You will need Matlab version 2019
+You will need at least Matlab version 2016b for the code to function properly. For the best result, please update to the newest version of Matlab, which is 2019b by the time of this note is written. 
 
 ## The main_plot routine
+
+For the full analysis, open a matlab session, and directly run main_plot.m in the QG-omega folder: 
+```
+main_plot
+```
 
 ## Inverting QG-omega equation using an example event
 
