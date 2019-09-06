@@ -24,8 +24,6 @@ p_max = 55000; % lower limit, events should at least have full non-NaN values at
 window_x = 1;       % smoothing window. This translates to a (2*window_x+1)-by-(2*window_y+1) smoothing filter
 window_y = 1;
 
-
-
 % read data of an example event
 nc_filename = './data/example_event.nc';
 [T, ua, va, ug, vg, omega, omega_b, ...
@@ -81,7 +79,7 @@ beta = 2 * Omega / R * cos(lat((1+end)/2) / 180 * 3.1415926);
  dug_dlambda, dvg_dlambda, dug_dphi, dvg_dphi, ...
  dT_dlambda, dT_dphi, sigma_accu, zeta] = ...
             deal(zeros(length(lat), length(lon), length(level), length(event_timespan)));
-[sigma, dtheta_dp_ma, T_avg] = deal(zeros(length(level), length(event_timespan)));
+[sigma, T_avg] = deal(zeros(length(level), length(event_timespan)));
 omega_QG = zeros(length(lat), length(lon), length(level), length(event_timespan));
 
 for t = 1 : length(event_timespan)
@@ -98,7 +96,8 @@ for t = 1 : length(event_timespan)
     % equation (5) in O'Gorman, 2011
     lambda_eff = squeeze(mean(mean(omega_up .* omega_up_prime, 1), 2) ./ ...
                      mean(mean(omega_up.^2, 1), 2));
-    [~, ~, theta_avg] = eff_stat_stab(level, T_avg(:, t), lambda_eff);
+    %theta_avg = potential_temp(level, T_avg(:, t));
+    theta_avg = T_avg(:, t) .* (1e5 ./ level) .^ kappa;
 
     sigma(:, t) =  - Ra * T_avg(:, t) ./ (level .* theta_avg) .* gradient(theta_avg, level);
 
