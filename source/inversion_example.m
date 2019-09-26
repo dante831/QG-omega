@@ -142,11 +142,16 @@ for t = 1 : length(event_timespan)
                                         sigma_accu(:, :, :, t), dphi, dlambda, rhs(:, :, :, t), omega_b(:, :, :, t), false);
 end
 
+% find the center of the upward velocity field
+N_lon = 360 / (lon(2) - lon(1));
+[omega_x_ind, omega_y_ind, tag] = find_center_omega(...
+            (length(lon) + 1)/2, (length(lat) + 1)/2, omega_QG(:, :, level == 50000, 2), N_lon);
+
 % load precipitation fields centered around this grid point
 load('./data/event_precip.mat')
 quantile_file_h = './data/precip_99.9th_quantile_h.mat';
 temp = load(quantile_file_h, 'Q');
-historical_quantile = temp.Q(177, 44); clear('temp')
+historical_quantile = temp.Q(143, 144); clear('temp')
 
 % plot the inverted event, the same as figure 1 of Li and O'Gorman, 2019
 plot_level = 50000;
@@ -154,6 +159,6 @@ plot_path = 'plots/';
 filename = [plot_path, 'example_event'];
 threeD_event_plot(0, historical_quantile, ...
                     lat, lon, level, omega_QG, event_precip(x_ind, y_ind, :), plot_level, event_timespan, ...
-                    lon((1+end)/2), lat((1+end)/2), filename)
+                    lon(omega_x_ind), lat(omega_y_ind), filename)
 
 

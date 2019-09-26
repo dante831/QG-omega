@@ -15,15 +15,10 @@ end
 if ~exist('lat_1')
     lat_1 = lat;
 end
-%[Lat, Lon] = meshgrid(lat, lon);
 [Lon, Lat] = meshgrid(lon, lat);
 [Lat_1, Lon_1] = meshgrid(lat_1, lon_1);
 [Level_y, Lat_z] = meshgrid(level2, lat);
 [Level_x, Lon_z] = meshgrid(level2, lon);
-
-%ind_x = (length(lon) + 1) / 2 + 1; % horizontal x location
-%ind_y = (length(lat) + 1) / 2 + 1; % horizontal y location
-%lower_level = 95000; % the lower limit of the plot
 
 ind_x = (length(lon) + 1) / 2 + 4;
 ind_y = (length(lat) + 1) / 2 + 4;
@@ -33,8 +28,6 @@ plot_level = 50000; % vertical z location
 plot_level_end = 0;
 
 omega_QG_xy = omega_QG(:, :, length(level) - find(level == plot_level) + 1, 2);
-%omega_QG_yz = squeeze(omega_QG(:, ind_x, :, 2));
-%omega_QG_xz = squeeze(omega_QG(ind_y, :, :, 2));
 omega_QG_yz = squeeze(omega_QG(:, ind_x, length(level):-1:1, 2));
 omega_QG_xz = squeeze(omega_QG(ind_y, :, length(level):-1:1, 2));
 omega_QG_xy_top = omega_QG(:, :, 1, 2);
@@ -56,9 +49,6 @@ day_series = event_day + ([-30+t:30+t])*0.25;
 event_year = 1990 + floor(event_timespan(2)/365);
 
 colors = colormap(jet(140));
-%colors = colors([21:60, 81:120], :);
-% get the blue-ish and red-ish color from jet colormap
-%colors(40 : 41, :) = 0.99;
 
 clevels = 80;
 fig = figure('pos', [10, 10, 600, 250]);
@@ -90,21 +80,10 @@ expand_factor = 1;
 levels = [10, 30, 50, 70, 90];
 [C, hContour] = contour3(ax2, Lon_1, Lat_1, event_precip(:, :, event_timespan(2)/0.25 + t)*expand_factor, levels, 'ShowText','on');
 clabel(C, hContour, [10, 50, 90], 'interpreter', 'latex', 'LabelSpacing', 100, 'FontSize', 8);
-%for s = 1 : length(hcl)
-%    set(hcl(s), 'String', num2str(-(str2num(hcl.String) - 1e5)));
-%end
-%drawnow;
-%for s = 1 : length(hContour.TextPrims)
-%    num2str(-(str2num(hContour.TextPrims(s).String) - 1e5))
-%    set(hContour.TextPrims(s), 'String', num2str(-(str2num(hContour.TextPrims(s).String) - 1e5)));
-%    hContour.TextPrims(s).Interpreter = 'latex';
-%end
 scatter3(ax2, lon_1((end+1)/2), lat_1((end+1)/2), ...
     event_precip((end+1)/2, (end+1)/2, event_day/0.25 + t)*expand_factor, 25, 'o', ...
     'MarkerFaceColor', 'red', 'MarkerEdgeColor', 'none')
 caxis(ax2, [0, 100]*expand_factor)
-%caxis([0.0, 100.0])
-cb = colorbar;
 
 text(158., 50., 161000, '(b)', 'interpreter', 'latex', 'FontSize', 13)
 xlabel('lon', 'interpreter', 'latex')
@@ -121,11 +100,8 @@ for i = 1 : length(zticklabs)
     labels{i} = num2str(1e3 - zticklabs(i)/100);
 end
 zticklabels(labels)
-%zticklabels({'1000', '750', '500', '250', '0'})
-%zticklabels(string(1e3 - zticklabs(:)/100))
 set(ax2, 'TickLabelInterpreter', 'latex')
 colormap('parula')
-%set(gca, 'Zdir', 'reverse')
 axis([lon_1(1) - 0.1, lon_1(end), lat_1(1) - 0.1, lat_1(end), 0, 100000])
 view(-40, 30)
 grid on
@@ -161,16 +137,12 @@ s3.EdgeColor = 'none';
 s3.FaceColor = 'interp';
 s4 = surf(ax3, Lon, Lat, ones(size(Lon))*level2(end), clevels, 'Linestyle', 'none');
 s4.CData = omega_QG_xy_top;
-%s4.EdgeColor = [0, 0, 0];
-%s4.LineStyle = '-'
 s4.FaceColor = 'interp';
 s5 = surf(ax3, ones(size(Lat_z))*lon(1), Lat_z, Level_y, clevels, 'Linestyle', 'none');
 s5.CData = omega_QG_yz_top;
-%s5.EdgeColor = 'none';
 s5.FaceColor = 'interp';
 s6 = surf(ax3, Lon_z, ones(size(Lon_z))*lat(1), Level_x, clevels, 'Linestyle', 'none');
 s6.CData = omega_QG_xz_top;
-%s6.EdgeColor = 'none';
 s6.FaceColor = 'interp';
 
 d = 0.1;
@@ -203,14 +175,11 @@ caxis(ax3, [-1.5, 0.5])
 colormap(ax3, colors)
 cb = colorbar;
 axis([lon_1(1) - 0.1, lon_1(end), lat_1(1) - 0.1, lat_1(end), 0, 100000])
-%set(gca, 'Zdir', 'reverse')
 view(-40, 30)
 grid on
 set([ax3], 'Position', ax2_position);
 
 linkprop([ax2, ax3], 'CameraPosition');
-
-
 
 % deal with colorbar
 cpos = get(cb,'Position');
