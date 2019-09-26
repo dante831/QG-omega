@@ -101,10 +101,6 @@ for f_ind = 1 : length(mat_filenames)
     precip_r_mean_d = nanmean(precip_r .* NaN_matrix_d, 2);
 
     %% moist decomposition
-    %if ~exist('sigma_star_h')
-    %    sigma_star_h = - kappa ./ Plevels .* dtheta_dp_ma_h * cpd;
-    %    sigma_star_r = - kappa ./ Plevels .* dtheta_dp_ma_r * cpd;
-    %end
     k2_star_h = k2_h;
     k2_star_r = k2_r;
 
@@ -158,32 +154,7 @@ for f_ind = 1 : length(mat_filenames)
     omega_vs_omega_QG
 
     %% J term estimation via moist-adiabatic process
-    figure('pos', [10, 10, 300, 270])
-    ind_lat = abs(lat) >= 30;
-    temp_1 = J_r(ind_lat, :);
-    temp_2 = - omega_r(ind_lat, :) .* sigma_star_r(ind_lat, :) * plot_level / kappa;
-    temp_3 = - omega_r(ind_lat, :) .* sigma_r(ind_lat, :) * plot_level / kappa;
-    temp_4 = omega_QG_r(ind_lat, :) .* dtheta_dp_ma_r(ind_lat, :) * cpd;
-    s1 = scatter(temp_2(:), temp_1(:), 1, 'o', 'filled', 'MarkerFaceColor', colors(2, :));
-    hold on
-    temp_1 = J_h(ind_lat, :);
-    temp_2 = - omega_h(ind_lat, :) .* sigma_star_h(ind_lat, :) * plot_level / kappa;
-    temp_3 = - omega_h(ind_lat, :) .* sigma_h(ind_lat, :) * plot_level / kappa;
-    temp_4 = omega_QG_h(ind_lat, :) .* dtheta_dp_ma_h(ind_lat, :) * cpd;
-    s2 = scatter(temp_2(:), temp_1(:), 1.5, 'o', 'filled', 'MarkerFaceColor', colors(1, :));
-    plot([-10, 10], [-10, 10], 'k--');
-    legend([s2, s1], {'Historical', 'RCP8.5'}, 'location', 'southeast', 'interpreter', 'latex')
-    legend boxoff
-    xlim([-0.05, 1.2])
-    ylim([-0.05, 1.2])
-    xlabel('$-\frac{p}{\kappa}\omega\sigma^*$ (J kg$^{-1}$s$^{-1}$)', 'interpreter', 'latex')
-    ylabel('$J$ (J kg$^{-1}$s$^{-1}$)', 'interpreter', 'latex')
-    set(gca, 'Position', [0.17, 0.15, 0.75, 0.75])
-    set(gca, 'TickLabelInterpreter','latex')
-    set(gca, 'TickDir', 'out');
-    saveas(gca, [plot_path_ensemble, 'J_estimation_scatter_', plot_level_name], 'png')
-    clf;
-
+    J_estimation
 
     %% Some diagnostics useful for the paper
     ind_lat = abs(lat) > 30;
