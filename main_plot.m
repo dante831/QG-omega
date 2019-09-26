@@ -132,7 +132,6 @@ for f_ind = 1 : length(mat_filenames)
     omega_r_mean_m    = nanmean(omega_r    .* NaN_matrix_m, 2);
     Omega_h_mean_m    = repmat(omega_h_mean_m, 1, size(omega_h, 2));
 
-
     % read in global temperature changes
     if GFDL
         load('/disk7/ziweili/test1_GFDL/exp/global_temperature/global_avg_T.mat');
