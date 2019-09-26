@@ -10,8 +10,6 @@ cp = 1005.0;        % heat capacity at 300K, in J/(kg*K)
 kappa = Ra/cp;
 dt = 3600.0 * 6.0;  % time difference, in seconds
 
-
-
 % shrink_box parameters
 box_min = 15; % values for CESM-LE data
 box_max = 29;
@@ -50,8 +48,6 @@ omega   = omega  (y_ind, x_ind, level_indices, :);
 omega_b = omega_b(y_ind, x_ind, level_indices, :);
 lat     = lat(y_ind);
 lon     = lon(x_ind);
-%event_latspan = event_latspan(y_ind);
-%event_lonspan = event_lonspan(x_ind);
 
 % define some other useful arrays
 phi = lat / 180.0 * 3.1415926;
@@ -84,23 +80,14 @@ omega_QG = zeros(length(lat), length(lon), length(level), length(event_timespan)
 
 for t = 1 : length(event_timespan)
 
+    % horizontally-averaged temperature and potential temperature
     T_avg(:, t) = reshape(mean(mean(T(:, :, :, t), 1), 2), size(level));
-
-    % effective static stability: sigma_eff
-    temp_omega = squeeze(omega(:, :, :, t));
-    omega_prime = temp_omega - repmat(mean(mean(temp_omega, 1), 2), ...
-            [size(temp_omega(:, :, 1)), 1]);
-    omega_up = temp_omega; omega_up(temp_omega > 0) = 0;
-    omega_up_prime = omega_up - repmat(mean(mean(omega_up, 1), 2), ...
-            [size(omega_up(:, :, 1)), 1]);
-    % equation (5) in O'Gorman, 2011
-    lambda_eff = squeeze(mean(mean(omega_up .* omega_up_prime, 1), 2) ./ ...
-                     mean(mean(omega_up.^2, 1), 2));
-    %theta_avg = potential_temp(level, T_avg(:, t));
     theta_avg = T_avg(:, t) .* (1e5 ./ level) .^ kappa;
 
+    % dry static stability
     sigma(:, t) =  - Ra * T_avg(:, t) ./ (level .* theta_avg) .* gradient(theta_avg, level);
 
+    % local potential temperature and static stability
     Level = repmat(reshape(level, 1, 1, length(level)), length(lat), length(lon), 1);
     theta = T(:, :, :, t) .* (1e5 ./ Level) .^ kappa;
     sigma_accu(:, :, :, t) = - Ra * T(:, :, :, t) ./ (Level .* theta) .* d_dp(theta, level);
