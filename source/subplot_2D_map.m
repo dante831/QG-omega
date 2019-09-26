@@ -116,9 +116,13 @@ function subplot_2D_map(cmp, margins, ax, row, col, fig_index, figsize, ...
         temp2(sub2ind(s, max(ind_y - 1, 1), ind_x)) = aaa;
         temp2(sub2ind(s, ind_y, mod(ind_x + 1 - 1, size(temp2, 2)) + 1)) = aaa; 
         temp2(sub2ind(s, ind_y, mod(ind_x - 1 - 1, size(temp2, 2)) + 1)) = aaa;
+        
+        warning('off', 'MATLAB:contour:ConstantData') % suppress warning message of constant contour
         [c2, h2] = contourf(ax2{fig_index}, [X - 360, X], [Y, Y], [temp2, temp2], [0:0.1:5], 'LineColor', 'none');
+        
         colormap(ax2{fig_index}, 'bone')
     end
+
     axis([X(1, 1) - 180, X(1, end) - 180, Y(1, 1), Y(end, 1)])
     ax2{fig_index}.Visible = 'off';
     ax2{fig_index}.XTick = [];
@@ -138,11 +142,11 @@ function subplot_2D_map(cmp, margins, ax, row, col, fig_index, figsize, ...
     set(ax1{fig_index},'TickDir','out');
     if fig_index == 1
         cb = colorbar(ax1{fig_index}, 'Position', cb_pos);
+        cb.Label.Interpreter = 'latex';
         cb.Label.String = cb_string;
         cpos = get(cb,'Position');
         cb.Label.Position = cpos(1:2) + cb_label_pos_bias;
         cb.Label.Rotation = 0;
-        cb.Label.Interpreter = 'latex';
         cb.Ticks = cb_ticks;
         if ~isempty(cb_ticklabels)
             cb.TickLabels = cb_ticklabels;
