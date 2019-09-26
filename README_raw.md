@@ -8,12 +8,19 @@ You will need at least Matlab version 2016b for the code to function properly. F
 
 ## The main_plot routine
 
-For the full analysis, open a matlab session, and directly run main_plot.m in the QG-omega folder: 
+For the full analysis, open a matlab session, and directly run main_plot.m in the 'QG-omega' folder: 
 ```
 main_plot
 ```
 
 ## Inverting QG-omega equation using an example event
+
+Routine 'inversion_example.m' in the 'source' folder performs the QG-omega inversion using the strongly implicit method originally due to Stone, 1968. This Matlab routine first reads in an example event in NetCDF format ('data/example_event.nc '), adjusts the computation box according to the data availability, calculates the terms on the right-hand side of the QG-omega equation, adds smoothing to the fields where necessary, and performs the numeric inversion. 
+
+To run the code, simply open a matlab session in the root folder and type in
+```
+inversion_example
+```
 
 ## Plotting figures
 
