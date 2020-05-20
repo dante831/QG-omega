@@ -14,7 +14,11 @@ kappa = Ra / cpd;
 omega_QG_h_rec =  - 1 ./ (k2_h .* sigma_h + m2_h .* F0.^2) .* (Adv_h + l2_h.*kappa./Plevels.*J_h);
 omega_QG_r_rec =  - 1 ./ (k2_r .* sigma_r + m2_r .* F0.^2) .* (Adv_r + l2_r.*kappa./Plevels.*J_r);
 
-% dtheta_dp_ma is defined using omega, and sigma_star is defined using omega_QG
+% 1) dtheta_dp_ma is defined using \overline{omega*dtheta_dp_ma}/\overline{omega}, 
+%    and sigma_star is defined using \overline{omega_QG*sigma_star}/\overline{omega_QG}
+% 2) Also, "dtheta_dp_ma_h" is actually T/theta*dtheta_dp_ma_h, so the conversion from dtheta_dp_ma_h
+%    below does not have T/theta part. 
+% 3) For the calculation of dtheta_dp_ma_h and dtheta_dp_ma_r for each event, see 
 sigma_star_h_omega = - kappa .* cpd ./ Plevels .* dtheta_dp_ma_h;
 sigma_star_r_omega = - kappa .* cpd ./ Plevels .* dtheta_dp_ma_r;
 

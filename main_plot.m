@@ -14,13 +14,16 @@ mat_filenames = {'CESM_6hourly.mat', ...
 
 for f_ind = 1 : length(mat_filenames)
     filename = ['./data/', mat_filenames{f_ind}];
+    
+    % load prepared 3D fields from data files
     load(filename)
+    
 
     % define the threshold of number of events for masking
     if strcmp(filename, 'CESM_6hourly.mat')
-        num_threshold = 40;
+        num_threshold = 30;
     else
-        num_threshold = 1;
+        num_threshold = 15;
     end
 
     if ~isempty(strfind(filename, 'GFDL'))
