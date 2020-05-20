@@ -1,4 +1,4 @@
-function [sigma_ma, dtheta_dp_ma, theta] = compute_moist_adia_sigma(temp, p)
+function [dtheta_dp_ma, theta] = compute_moist_adia_sigma(temp, p)
 
     % This code is slightly modified from https://pog.mit.edu/src/eff_stat_stab.m
 
@@ -40,8 +40,6 @@ function [sigma_ma, dtheta_dp_ma, theta] = compute_moist_adia_sigma(temp, p)
     % (neglects small contribution from vertical variations of exponent)
     dtemp_dp_ma  = malr/g./rho;
     dtheta_dp_ma = dtemp_dp_ma.*theta./temp-exponent.*theta./p;
-
-    sigma_ma = Rd^2 * temp ./ (p.^2 * cpd) - Rd .* dtemp_dp_ma ./ p;
 
 end
 
