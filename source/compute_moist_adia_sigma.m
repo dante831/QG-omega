@@ -41,6 +41,9 @@ function [dtheta_dp_ma, theta] = compute_moist_adia_sigma(temp, p)
     dtemp_dp_ma  = malr/g./rho;
     dtheta_dp_ma = dtemp_dp_ma.*theta./temp-exponent.*theta./p;
 
+    % include the T/theta factor in the definition of dtheta_dp_ma
+    dtheta_dp_ma = temp ./ theta .* dtheta_dp_ma;
+
 end
 
 

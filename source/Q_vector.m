@@ -1,4 +1,4 @@
-function [A, B] = Q_vector_v1(level, ug, vg, T, Phi, event_timespan, dphi, dlambda, f0, beta, GEO_T)
+function [A, B] = Q_vector(level, ug, vg, T, Phi, event_timespan, dphi, dlambda, f0, beta, GEO_T)
 
     % the Q-vector form following Dostalek, Schubert, and DeMaria, 2017
                     

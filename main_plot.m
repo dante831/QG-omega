@@ -20,10 +20,14 @@ for f_ind = 1 : length(mat_filenames)
     
 
     % define the threshold of number of events for masking
-    if strcmp(filename, 'CESM_6hourly.mat')
+    if strfind(filename, 'CESM_6hourly.mat')
         num_threshold = 30;
-    else
+    elseif strfind(filename, 'GFDL_6hourly.mat') | ...
+           strfind(filename, 'GFDL_daily.mat') | ...
+           strfind(filename, 'GFDL_6hourly_full_b.mat')
         num_threshold = 15;
+    elseif strfind(filename, 'CESM_daily.mat')
+        num_threshold = 5;
     end
 
     if ~isempty(strfind(filename, 'GFDL'))
@@ -143,20 +147,29 @@ for f_ind = 1 : length(mat_filenames)
     end
     delta_T = mean(T_avg_r) - mean(T_avg_h);
 
-    %% plot figure 2
+    Omega_QG_h_mean_d = repmat(omega_QG_h_mean_d, 1, size(omega_QG_h, 2));
+    Omega_h_mean_d = repmat(omega_h_mean_d, 1, size(omega_h, 2));
+
+    %% plot figure 2, lat-lon map of terms in the QG-omega equation
     figure_2
 
-    %% plot figure 3
-    figure_3
+    %% figures 3, 6, and S2
+    omega_vs_omega_QG
+
+    %% plot figure 4, lat-lon map of dry decomposition
+    figure_4
+
+    %% plot figure 5, zonal averaged dry and moist decompositions
+    figure_5
+
+    %% figure 7, estimation of J term via moist-adiabatic process
+    figure_7
+
+    %% figure 8, lat-lon map of moist decomposition
+    figure_8
 
     %% plot the magnitude of zonally-averaged terms
     plot_terms
-
-    %% omega_QG vs omega plot
-    omega_vs_omega_QG
-
-    %% J term estimation via moist-adiabatic process
-    J_estimation
 
     %% Some diagnostics useful for the paper
     ind_lat = abs(lat) > 30;

@@ -60,6 +60,35 @@ hold on;
 plot(-90:90, zeros(size(-90:90)), 'LineWidth', 0.8, 'Color', [0.3, 0.3, 0.3], 'Linestyle', ':')
 plot_x = lat_series(lat_indices);
 
+colors_2 = get(gca,'colororder');
+colors_2(7, 1) = colors_2(7, 1) + 0.2;
+colors_2(7, 3) = colors_2(7, 3) - 0.05;
+colors_2 = colors_2([1:3, 5:7], :);
+
+p11_S = plot(plot_x_S + bias, error_h(indS), 'LineWidth', 1.5, 'Color', colors_2(1, :));
+p12_S = plot(plot_x_S + bias, error_r(indS), 'LineWidth', 1.5, 'Color', colors_2(1, :), 'LineStyle', '--');
+p31_S = plot(plot_x_S + bias, term2_h(indS), 'LineWidth', 1.5, 'Color', colors_2(2, :));
+p32_S = plot(plot_x_S + bias, term2_r(indS), 'LineWidth', 1.5, 'Color', colors_2(2, :), 'LineStyle', '--');
+p41_S = plot(plot_x_S + bias, term3_h(indS), 'LineWidth', 1.5, 'Color', colors_2(3, :));
+p42_S = plot(plot_x_S + bias, term3_r(indS), 'LineWidth', 1.5, 'Color', colors_2(3, :), 'LineStyle', '--');
+p51_S = plot(plot_x_S + bias, term4_h(indS), 'LineWidth', 1.5, 'Color', colors_2(4, :));
+p52_S = plot(plot_x_S + bias, term4_r(indS), 'LineWidth', 1.5, 'Color', colors_2(4, :), 'LineStyle', '--');
+p61_S = plot(plot_x_S + bias, term5_h(indS), 'LineWidth', 1.5, 'Color', colors_2(5, :));
+p62_S = plot(plot_x_S + bias, term5_r(indS), 'LineWidth', 1.5, 'Color', colors_2(5, :), 'LineStyle', '--');
+
+p11_N = plot(plot_x_N - bias, error_h(indN), 'LineWidth', 1.5, 'Color', colors_2(1, :));
+p12_N = plot(plot_x_N - bias, error_r(indN), 'LineWidth', 1.5, 'Color', colors_2(1, :), 'LineStyle', '--');
+p31_N = plot(plot_x_N - bias, term2_h(indN), 'LineWidth', 1.5, 'Color', colors_2(2, :));
+p32_N = plot(plot_x_N - bias, term2_r(indN), 'LineWidth', 1.5, 'Color', colors_2(2, :), 'LineStyle', '--');
+p41_N = plot(plot_x_N - bias, term3_h(indN), 'LineWidth', 1.5, 'Color', colors_2(3, :));
+p42_N = plot(plot_x_N - bias, term3_r(indN), 'LineWidth', 1.5, 'Color', colors_2(3, :), 'LineStyle', '--');
+p51_N = plot(plot_x_N - bias, term4_h(indN), 'LineWidth', 1.5, 'Color', colors_2(4, :));
+p52_N = plot(plot_x_N - bias, term4_r(indN), 'LineWidth', 1.5, 'Color', colors_2(4, :), 'LineStyle', '--');
+p61_N = plot(plot_x_N - bias, term5_h(indN), 'LineWidth', 1.5, 'Color', colors_2(5, :));
+p62_N = plot(plot_x_N - bias, term5_r(indN), 'LineWidth', 1.5, 'Color', colors_2(5, :), 'LineStyle', '--');
+
+%{
+
 p11_S = plot(plot_x_S + bias, error_h(indS), 'LineWidth', 1, 'Color', 'blue');
 p12_S = plot(plot_x_S + bias, error_r(indS), 'LineWidth', 1, 'Color', 'blue', 'LineStyle', '--');
 p31_S = plot(plot_x_S + bias, term2_h(indS), 'LineWidth', 1, 'Color', 'cyan');
@@ -81,9 +110,25 @@ p51_N = plot(plot_x_N - bias, term4_h(indN), 'LineWidth', 1, 'Color', 'black');
 p52_N = plot(plot_x_N - bias, term4_r(indN), 'LineWidth', 1, 'Color', 'black', 'LineStyle', '--');
 p61_N = plot(plot_x_N - bias, term5_h(indN), 'LineWidth', 1, 'Color', 'green');
 p62_N = plot(plot_x_N - bias, term5_r(indN), 'LineWidth', 1, 'Color', 'green', 'LineStyle', '--');
-
+%}
 clear('alpha')
 
+ind2 = starts(1) : ends(1);
+fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [error_h(ind2)' fliplr(error_r(ind2)')], colors_2(1, :), 'edgealpha', 0);
+fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [term2_h(ind2)' fliplr(term2_r(ind2)')], colors_2(2, :), 'edgealpha', 0);
+fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [term3_h(ind2)' fliplr(term3_r(ind2)')], colors_2(3, :), 'edgealpha', 0);
+fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [term4_h(ind2)' fliplr(term4_r(ind2)')], colors_2(4, :), 'edgealpha', 0);
+fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [term5_h(ind2)' fliplr(term5_r(ind2)')], colors_2(5, :), 'edgealpha', 0);
+
+ind2 = starts(2) : ends(2);
+fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [error_h(ind2)' fliplr(error_r(ind2)')], colors_2(1, :), 'edgealpha', 0);
+fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term2_h(ind2)' fliplr(term2_r(ind2)')], colors_2(2, :), 'edgealpha', 0);
+fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term3_h(ind2)' fliplr(term3_r(ind2)')], colors_2(3, :), 'edgealpha', 0);
+fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term4_h(ind2)' fliplr(term4_r(ind2)')], colors_2(4, :), 'edgealpha', 0);
+fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term5_h(ind2)' fliplr(term5_r(ind2)')], colors_2(5, :), 'edgealpha', 0);
+
+
+%{
 ind2 = starts(1) : ends(1);
 fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [error_h(ind2)' fliplr(error_r(ind2)')], 'blue', 'edgealpha', 0);
 fill([plot_x(ind2)' + bias, fliplr(plot_x(ind2)' + bias)], [term2_h(ind2)' fliplr(term2_r(ind2)')], 'cyan', 'edgealpha', 0);
@@ -97,7 +142,7 @@ fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term2_h(ind2)' flipl
 fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term3_h(ind2)' fliplr(term3_r(ind2)')], 'red', 'edgealpha', 0);
 fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term4_h(ind2)' fliplr(term4_r(ind2)')], 'black', 'edgealpha', 0); 
 fill([plot_x(ind2)' - bias, fliplr(plot_x(ind2)' - bias)], [term5_h(ind2)' fliplr(term5_r(ind2)')], 'green', 'edgealpha', 0); 
-    
+%}  
 alpha(.15);
 
 lgd = legend( ...
