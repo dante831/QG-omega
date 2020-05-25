@@ -23,7 +23,7 @@ for f_ind = 1 : length(mat_filenames)
         % 'omega_h' and 'omega_r': pressure velocity
         % 'omega_QG_h' and 'omega_QG_r': pressure velocity inverted from teh QG-omega equation
         % 'precip_h' and 'precip_r': precipitation
-        % 'Adv_h' and 'Adv_r'
+        % 'Adv_h' and 'Adv_r': advection forcing in the Q-vector form
 
     % define the threshold of number of events for masking
     if strfind(filename, 'CESM_6hourly.mat')

@@ -89,7 +89,7 @@ cb.TickLabelInterpreter = 'latex';
 set(cb, 'FontSize', 10);
 
 % get two opposite colors from a specified symmetric colormap
-addpath('../../source/cbrewer/')
+addpath('./source/cbrewer/')
 colors_1 = colormap(ax1, cbrewer('div', 'RdBu', 26, 'pchip'));
 colors_1 = colors_1([4:13, 14:23], :);
 colors_1(n_level / 2 : n_level / 2 + 1, :) = 0.99;

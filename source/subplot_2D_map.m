@@ -3,6 +3,10 @@ function main_fig = subplot_2D_map(main_fig, cmp, margins, fig_index, figsize, .
         cb_pos, cb_string, cb_label_pos_bias, cb_ticks, cb_ticklabels, ...
         lat_mask, ZERO, FLIP, LIGHT_COLOR, varargin);
   
+    % suppress warning for constant contour when plotting the grey masking
+    MSGID = 'MATLAB:contour:ConstantData';
+    warning('off', MSGID)
+
     while ~isempty(varargin)
         switch lower(varargin{1})  
             case 'colorbar'
