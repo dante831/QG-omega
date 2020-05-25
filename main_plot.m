@@ -17,7 +17,13 @@ for f_ind = 1 : length(mat_filenames)
     
     % load prepared 3D fields from data files
     load(filename)
-    
+        % Each indivdual file contains the following fields. 
+        % Suffix '_h' denotes values averaged across events in the 
+        % historical climate, and '_r' denotes values for RCP8.5.
+        % 'omega_h' and 'omega_r': pressure velocity
+        % 'omega_QG_h' and 'omega_QG_r': pressure velocity inverted from teh QG-omega equation
+        % 'precip_h' and 'precip_r': precipitation
+        % 'Adv_h' and 'Adv_r'
 
     % define the threshold of number of events for masking
     if strfind(filename, 'CESM_6hourly.mat')
@@ -82,6 +88,7 @@ for f_ind = 1 : length(mat_filenames)
     d_Adv   = - 1./(sigma_h.*k2_h + F0.^2.*m2_h) .* (Adv_r - Adv_h);
     d_dtheta_dp_ma_omega = - 1./(sigma_h .* k2_h + F0.^2.*m2_h) .* ...
             kappa .* cpd ./ plot_level .* k2_h .* (omega_r .* dtheta_dp_ma_r - omega_h .* dtheta_dp_ma_h);
+            % note that dtheta_dp_ma_h already has a T/theta factor
     d_rec   = d_sigma + d_k2 + d_l2 + d_J + d_m2 + d_Adv;
     d_omega_QG = omega_QG_r - omega_QG_h;
     d_omega    = omega_r - omega_h;
