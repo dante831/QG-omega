@@ -8,7 +8,7 @@ You will need at least Matlab version 2016b for the code to function properly. F
 
 ## The main_plot routine
 
-For the full analysis, open a matlab session, and directly run main_plot.m in the 'QG-omega' folder: 
+For the full analysis, open a matlab session and directly run main_plot.m in the 'QG-omega' folder: 
 ```
 main_plot
 ```
